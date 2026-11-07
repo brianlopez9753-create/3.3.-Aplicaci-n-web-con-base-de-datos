@@ -1,0 +1,18 @@
+<main class="page-shell">
+  <header class="topbar">
+    <a class="brand" href="<%= root_path %>" aria-label="Inicio">
+      <span class="brand-mark">R</span>
+      <span>Registro<span class="brand-muted">s</span></span>
+    </a>
+    <span class="topbar-label">Panel de administración</span>
+  </header>
+  <p class="breadcrumb"><%= link_to "Registros", registros_path %><span>/</span> Nuevo</p>
+  <section class="form-card">
+    <div class="form-heading">
+      <p class="eyebrow">NUEVA INFORMACIÓN</p>
+      <h1>Agregar registro</h1>
+      <p>Completa los datos para guardar un nuevo registro.</p>
+    </div>
+    <%= render "form", registro: @registro %>
+  </section>
+</main>

@@ -1,0 +1,33 @@
+<%= form_with model: registro, class: "record-form" do |form| %>
+  <% if registro.errors.any? %>
+    <div class="form-errors" role="alert">
+      <h2>No se pudo guardar el registro</h2>
+      <ul>
+        <% registro.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-field">
+    <%= form.label :nombre, "Nombre" %>
+    <%= form.text_field :nombre, required: true, autocomplete: "name", placeholder: "Nombre completo" %>
+  </div>
+  <div class="form-field">
+    <%= form.label :correo, "Correo electrónico" %>
+    <%= form.email_field :correo, required: true, autocomplete: "email", placeholder: "nombre@ejemplo.com" %>
+  </div>
+  <div class="form-field">
+    <%= form.label :telefono, "Teléfono" %>
+    <%= form.telephone_field :telefono, autocomplete: "tel", placeholder: "Ej. 55 1234 5678" %>
+  </div>
+  <div class="form-field">
+    <%= form.label :observaciones, "Observaciones" %>
+    <%= form.text_area :observaciones, rows: 4, placeholder: "Información adicional (opcional)" %>
+  </div>
+  <div class="form-actions">
+    <%= link_to "Cancelar", registros_path, class: "button button-secondary" %>
+    <%= form.submit(registro.persisted? ? "Guardar cambios" : "Crear registro", class: "button button-primary") %>
+  </div>
+<% end %>

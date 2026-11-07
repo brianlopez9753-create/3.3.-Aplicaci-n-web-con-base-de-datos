@@ -1,24 +1,29 @@
-# README
+# Registros
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Aplicación Rails para consultar, crear, editar y eliminar registros con nombre,
+correo electrónico, teléfono y observaciones.
 
-Things you may want to cover:
+## Desarrollo local
 
-* Ruby version
+Requiere Ruby 3.4.12. En desarrollo y pruebas se usa SQLite:
 
-* System dependencies
+```sh
+bin/setup
+bin/rails db:migrate
+bin/rails server
+```
 
-* Configuration
+Abre <http://localhost:3000>.
 
-* Database creation
+## Despliegue en Render
 
-* Database initialization
+1. Crea una base de datos PostgreSQL y un servicio web Ruby en Render.
+2. Configura `DATABASE_URL` en el servicio web con el valor **Internal Database URL** de la base de datos.
+3. Usa `render-build.sh` como **Build Command** y `bundle exec puma -C config/puma.rb` como **Start Command**.
+4. Configura `bundle exec rails db:prepare` como **Pre-Deploy Command** para preparar y migrar la base de datos antes de publicar la versión nueva.
+5. Configura `RAILS_MASTER_KEY` como variable de entorno si Render no la proporciona desde el archivo de credenciales.
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+El archivo de build instala las gemas y compila los assets; las migraciones se ejecutan
+en el pre-deploy con acceso a la base de datos. No publiques credenciales dentro del
+código. El almacenamiento de caché, los trabajos en segundo plano y Action Cable
+usan adaptadores en memoria/async; los registros se guardan en PostgreSQL.

@@ -1,0 +1,79 @@
+<main class="page-shell">
+  <header class="topbar">
+    <a class="brand" href="<%= root_path %>" aria-label="Inicio">
+      <span class="brand-mark">R</span>
+      <span>Registro<span class="brand-muted">s</span></span>
+    </a>
+    <span class="topbar-label">Panel de administración</span>
+  </header>
+
+  <section class="page-heading">
+    <div>
+      <p class="eyebrow">GESTIÓN DE DATOS</p>
+      <h1>Registros</h1>
+      <p class="page-description">Consulta y administra la información guardada.</p>
+    </div>
+    <%= link_to new_registro_path, class: "button button-primary" do %>
+      <span class="button-plus" aria-hidden="true">+</span> Nuevo registro
+    <% end %>
+  </section>
+
+  <% if notice %>
+    <p class="flash flash-notice" role="status"><%= notice %></p>
+  <% end %>
+
+  <section class="records-card" aria-label="Listado de registros">
+    <div class="card-heading">
+      <div>
+        <h2>Todos los registros</h2>
+        <p>Información de las personas registradas</p>
+      </div>
+      <span class="record-count"><%= @registros.size %> <%= @registros.size == 1 ? "registro" : "registros" %></span>
+    </div>
+
+    <% if @registros.any? %>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Nombre</th>
+              <th scope="col">Correo electrónico</th>
+              <th scope="col">Teléfono</th>
+              <th scope="col">Observaciones</th>
+              <th scope="col"><span class="visually-hidden">Acciones</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @registros.each do |registro| %>
+              <tr>
+                <td>
+                  <%= link_to registro.nombre, registro, class: "person-link" %>
+                </td>
+                <td><%= registro.correo %></td>
+                <td><%= registro.telefono.presence || "—" %></td>
+                <td class="observations-cell"><%= registro.observaciones.presence || "—" %></td>
+                <td>
+                  <div class="row-actions">
+                    <%= link_to "Ver", registro, class: "action-link" %>
+                    <%= link_to "Editar", edit_registro_path(registro), class: "action-link" %>
+                    <%= button_to "Eliminar", registro, method: :delete, class: "action-link action-danger",
+                        form: { class: "inline-form", data: { turbo_confirm: "¿Eliminar este registro?" } } %>
+                  </div>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% else %>
+      <div class="empty-state">
+        <span class="empty-icon" aria-hidden="true">＋</span>
+        <h3>Aún no hay registros</h3>
+        <p>Agrega el primero para comenzar a organizar tu información.</p>
+        <%= link_to "Agregar registro", new_registro_path, class: "button button-primary" %>
+      </div>
+    <% end %>
+  </section>
+
+  <footer class="page-footer">Tus datos, organizados en un solo lugar.</footer>
+</main>

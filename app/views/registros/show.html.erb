@@ -1,0 +1,43 @@
+<main class="page-shell">
+  <header class="topbar">
+    <a class="brand" href="<%= root_path %>" aria-label="Inicio">
+      <span class="brand-mark">R</span>
+      <span>Registro<span class="brand-muted">s</span></span>
+    </a>
+    <span class="topbar-label">Panel de administración</span>
+  </header>
+
+  <p class="breadcrumb"><%= link_to "Registros", registros_path %><span>/</span> Detalle</p>
+  <% if notice %>
+    <p class="flash flash-notice" role="status"><%= notice %></p>
+  <% end %>
+
+  <section class="detail-card">
+    <div class="detail-heading">
+      <div>
+        <p class="eyebrow">DETALLE DEL REGISTRO</p>
+        <h1><%= @registro.nombre %></h1>
+      </div>
+      <%= link_to "Editar registro", edit_registro_path(@registro), class: "button button-secondary" %>
+    </div>
+    <dl class="detail-grid">
+      <div class="detail-item">
+        <dt>Correo electrónico</dt>
+        <dd><%= @registro.correo %></dd>
+      </div>
+      <div class="detail-item">
+        <dt>Teléfono</dt>
+        <dd><%= @registro.telefono.presence || "Sin teléfono" %></dd>
+      </div>
+      <div class="detail-item detail-wide">
+        <dt>Observaciones</dt>
+        <dd><%= @registro.observaciones.presence || "Sin observaciones" %></dd>
+      </div>
+    </dl>
+    <div class="detail-footer">
+      <%= link_to "← Volver a los registros", registros_path, class: "back-link" %>
+      <%= button_to "Eliminar registro", @registro, method: :delete, class: "text-button text-danger",
+          form: { class: "inline-form", data: { turbo_confirm: "¿Eliminar este registro?" } } %>
+    </div>
+  </section>
+</main>
