@@ -24,6 +24,4 @@ Abre <http://localhost:3000>.
 5. Configura `RAILS_MASTER_KEY` como variable de entorno si Render no la proporciona desde el archivo de credenciales.
 
 El archivo de build instala las gemas y compila los assets; las migraciones se ejecutan
-en el pre-deploy con acceso a la base de datos. No publiques credenciales dentro del
-código. El almacenamiento de caché, los trabajos en segundo plano y Action Cable
-usan adaptadores en memoria/async; los registros se guardan en PostgreSQL.
+en el pre-deploy con acceso a la base de datos.
